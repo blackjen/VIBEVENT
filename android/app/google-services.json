@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "125351721048",
+    "project_id": "vibevent-e9dd7",
+    "storage_bucket": "vibevent-e9dd7.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:125351721048:android:8bc3565691f31695fa722d",
+        "android_client_info": {
+          "package_name": "com.example.vibevent"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-5HZSXO6bHbz4d4UOMpw5UkLrXJnkvk4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

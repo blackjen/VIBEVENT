@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyCN-pi5KlPclRi6KKskewx7-koSrtQC1CU</string>
+	<key>GCM_SENDER_ID</key>
+	<string>125351721048</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.danielantichi.vibevent</string>
+	<key>PROJECT_ID</key>
+	<string>vibevent-e9dd7</string>
+	<key>STORAGE_BUCKET</key>
+	<string>vibevent-e9dd7.firebasestorage.app</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:125351721048:ios:6cc5ab9f15416fa3fa722d</string>
+</dict>
+</plist>
