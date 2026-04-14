@@ -35,9 +35,9 @@ class RegisterViewState extends State<RegisterView> {
             end: Alignment.bottomRight,
           ),
         ),
-        child: SafeArea(                                          // ← AGGIUNTO
-          child: SingleChildScrollView(                          // ← AGGIUNTO
-            padding: const EdgeInsets.symmetric(                 // ← SOSTITUISCE il Padding esterno
+        child: SafeArea(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(
               horizontal: 40,
               vertical: 40,
             ),
