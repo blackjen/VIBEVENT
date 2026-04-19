@@ -31,6 +31,8 @@ class ProfilePageState extends State<ProfilePage> {
   }
 
   Future<void> _saveProfile() async {
+    if (!_formKey.currentState!.validate()) return;
+
     final result = await _controller.updateProfile(
       nome: _nomeController.text,
       cognome: _cognomeController.text,
@@ -75,7 +77,6 @@ class ProfilePageState extends State<ProfilePage> {
             const CircleAvatar(radius: 50, child: Icon(Icons.person, size: 50)),
             const SizedBox(height: 20),
 
-            // Form
             Form(
               key: _formKey,
               child: Column(

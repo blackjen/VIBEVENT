@@ -9,7 +9,7 @@ class ProfileController {
 
   UserModel? get currentUser => _userController.currentUser;
 
-  // Validazioni base
+  // Validazioni
   bool _validateNotEmpty(String value) => value.trim().isNotEmpty;
 
   // Aggiorna profilo con verifica

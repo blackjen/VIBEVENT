@@ -18,7 +18,7 @@ class _MyEventsPageState extends State<MyEventsPage> {
   String getEventStatus(EventModel e) {
     final now = DateTime.now();
     final start = e.data;
-    final end = e.data.add(const Duration(hours: 5)); // durata stimata evento
+    final end = e.data.add(const Duration(hours: 5)); // Durata stimata evento
 
     if (now.isBefore(start)) return "FUTURO";
     if (now.isAfter(end)) return "TERMINATO";
@@ -58,7 +58,6 @@ class _MyEventsPageState extends State<MyEventsPage> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                // lineetta sopra stile iOS
                 Container(
                   width: 40,
                   height: 5,
@@ -69,7 +68,7 @@ class _MyEventsPageState extends State<MyEventsPage> {
                   ),
                 ),
 
-                _optionTile(
+                _option(
                   icon: Icons.photo_library,
                   text: "Mostra Media",
                   color: Colors.lightBlueAccent,
@@ -90,7 +89,7 @@ class _MyEventsPageState extends State<MyEventsPage> {
 
                 const SizedBox(height: 12),
 
-                _optionTile(
+                _option(
                   icon: Icons.article,
                   text: "Mostra News",
                   color: Colors.orangeAccent,
@@ -116,7 +115,7 @@ class _MyEventsPageState extends State<MyEventsPage> {
   }
 
   // Widget riutilizzabile per le opzioni
-  Widget _optionTile({
+  Widget _option({
     required IconData icon,
     required String text,
     required Color color,
@@ -150,6 +149,7 @@ class _MyEventsPageState extends State<MyEventsPage> {
       ),
     );
   }
+
 
   Widget _eventTile(EventModel e, String status, bool hasUnreadNews) {
     return GestureDetector(
@@ -216,6 +216,7 @@ class _MyEventsPageState extends State<MyEventsPage> {
     );
   }
 
+  // Restituisce stato evento
   Widget _statusChip(String status) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),

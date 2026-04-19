@@ -22,6 +22,7 @@ class GeolocatorServices {
     return LocationStatus.denied;
   }
 
+  // Controlla che il gps sia attivo e ritorna il risultato
   Future<LocationStatus> checkGpsPermissions() async {
     final isEnabled = await Geolocator.isLocationServiceEnabled();
     return isEnabled ? LocationStatus.granted : LocationStatus.gpsOff;

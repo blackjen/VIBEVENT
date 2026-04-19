@@ -74,13 +74,14 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
     await NotificationService.instance.init(context);
     if (!mounted) return;
 
-    // subscribe a tutti gli eventi già iscritti (copre reinstall/cambio telefono)
+    // Subscribe a tutti gli eventi già iscritti (copre reinstall/cambio telefono)
     for (final eventId in user.eventiIscritti) {
       await NotificationService.instance.subscribeToEvent(eventId);
     }
     if (!mounted) return;
   }
 
+  // Resetta posizione all'accesso, chiama check sui permessi e starta position track
   Future<void> _initLocationFlow() async {
     await _mainviewController.resetPositionOnAppEnter();
     await _checkPermissionsAndStart();
@@ -93,6 +94,7 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
     super.dispose();
   }
 
+  // Check permessi posizione e start position track
   Future<void> _checkPermissionsAndStart() async {
     final permissionStatus = await _geoService.checkGeolocatorPermission();
     final gpsStatus = await _geoService.checkGpsPermissions();
@@ -115,6 +117,7 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
     _mainviewController.startPositionTracking();
   }
 
+  // Quando l'app torna in foreground richiama _checkPermissionsAndStart();
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
@@ -128,6 +131,8 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // Se _permissionsGranted è true allora mostra il body
+      // Altrimenti mostra LocationPermissionScreenView()
       body: _permissionsGranted
           ? Stack(
               children: [

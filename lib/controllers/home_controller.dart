@@ -16,6 +16,7 @@ class HomeController {
     return await _firebaseServices.getEventsFromToday();
   }
 
+  // Calcola distanza tra 2 posizioni, in metri
   double _calculateDistanceInMeters(
     double lat1,
     double lon1,
@@ -40,6 +41,21 @@ class HomeController {
 
   double _degToRad(double deg) {
     return deg * (pi / 180);
+  }
+
+  // Filtra in base alla ricerca e ordina gli eventi
+  List<EventModel> filterAndSortEvents(
+    List<EventModel> events,
+    String query,
+    EventSortType sortType,
+  ) {
+    final lowerQuery = query.trim().toLowerCase();
+
+    List<EventModel> filtered = events.where((event) {
+      return event.titolo.toLowerCase().contains(lowerQuery);
+    }).toList();
+
+    return sortEvents(filtered, sortType);
   }
 
   List<EventModel> sortEvents(List<EventModel> events, EventSortType sortType) {
@@ -101,7 +117,6 @@ class HomeController {
     );
 
     return (meters / 1000).truncate();
-
   }
 
   Future<Result<void>> iscriviEvento(EventModel evento) async {
@@ -148,19 +163,4 @@ class HomeController {
 
     return Result.success(null);
   }
-
-  List<EventModel> filterAndSortEvents(
-      List<EventModel> events,
-      String query,
-      EventSortType sortType,
-      ) {
-    final lowerQuery = query.trim().toLowerCase();
-
-    List<EventModel> filtered = events.where((event) {
-      return event.titolo.toLowerCase().contains(lowerQuery);
-    }).toList();
-
-    return sortEvents(filtered, sortType);
-  }
-
 }

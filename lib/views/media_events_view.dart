@@ -52,6 +52,7 @@ class _MediaEventViewState extends State<MediaEventView> {
           ),
         ),
 
+        // Stream che ascolta i media di un evento
         child: StreamBuilder<List<ChatModel>>(
           stream: widget.controller.getMediaForEvent(widget.event.id),
           builder: (context, snapshot) {
@@ -63,6 +64,7 @@ class _MediaEventViewState extends State<MediaEventView> {
 
             final media = snapshot.data!;
 
+            // Se non ho media ritorno il seguente testo
             if (media.isEmpty) {
               return const Center(
                 child: Text(
@@ -72,6 +74,7 @@ class _MediaEventViewState extends State<MediaEventView> {
               );
             }
 
+            //Se ci sono media, li metto nel Gridview
             return GridView.builder(
               padding: const EdgeInsets.all(12),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -103,6 +106,7 @@ class _MediaEventViewState extends State<MediaEventView> {
     );
   }
 
+  // Widget che popola ogni cella del Gridview
   Widget _buildMedia(ChatModel media) {
     if (media.type == "image") {
       return Image.network(

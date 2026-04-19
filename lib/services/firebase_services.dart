@@ -9,7 +9,7 @@ class FirebaseServices {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
-  // AUTH
+  // REGISTRAZIONE AUTH
   Future<User?> register(String email, String password) async {
     final userCred = await _auth.createUserWithEmailAndPassword(
       email: email,
@@ -33,6 +33,7 @@ class FirebaseServices {
     await _db.collection("users").doc(user.uid).set(user.toMap());
   }
 
+  // Ritorna utente
   Future<UserModel?> getUser(String uid) async {
     final doc = await _db.collection("users").doc(uid).get();
     if (!doc.exists) return null;
@@ -80,6 +81,7 @@ class FirebaseServices {
     await NotificationService.instance.subscribeToEvent(eventId);
   }
 
+  // Ritorna una lista di EventModel, partendo dagli ID degli eventi
   Future<List<EventModel>> getEventsByIds(List<String> eventIds) async {
     if (eventIds.isEmpty) return [];
 
@@ -105,6 +107,7 @@ class FirebaseServices {
     return events;
   }
 
+  // Ritorna una lista di EventModel con data >= ad ora
   Future<List<EventModel>> getEventsFromToday() async {
     final now = DateTime.now();
 
@@ -118,10 +121,4 @@ class FirebaseServices {
 
     return snapshot.docs.map((doc) => EventModel.fromFirestore(doc)).toList();
   }
-
-  Future<List<EventModel>> getEvents() async {
-    final snapshot = await _db.collection('events').get();
-    return snapshot.docs.map((doc) => EventModel.fromFirestore(doc)).toList();
-  }
-
 }

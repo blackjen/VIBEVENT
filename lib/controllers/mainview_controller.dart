@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:vibevent/controllers/user_controller.dart';
 import '../models/user_model.dart';
 import '../services/firebase_services.dart';
@@ -13,7 +12,6 @@ class MainviewController {
   final FirebaseServices _firebaseServices = FirebaseServices();
 
   StreamSubscription<GeoPoint>? _positionSubscription;
-  VoidCallback? onTrackingErrorOrStopped;
 
   MainviewController(this._locationService, this._userController);
 
@@ -28,20 +26,20 @@ class MainviewController {
     }
 
     // Avvia lo stream se non già attivo
-    _positionSubscription ??= _locationService // Stream parte solo se _positionSub == Null
-        .getPositionStream(distanceFilter: 5)
-        .handleError((_) {})
-        .listen(
-          (geoPoint) {
-            _userController.updatePosition(geoPoint);
-          },
-          onError: (err) {
-            print("Errore stream posizione: $err");
-            stopPositionTracking(); // Evita crash quando permessi cambiano
-            onTrackingErrorOrStopped?.call();
-          },
-      cancelOnError: true,
-        );
+    _positionSubscription ??=
+        _locationService // Stream parte solo se _positionSub == Null
+            .getPositionStream(distanceFilter: 5)
+            .handleError((_) {})
+            .listen(
+              (geoPoint) {
+                _userController.updatePosition(geoPoint);
+              },
+              onError: (err) {
+                print("Errore stream posizione: $err");
+                stopPositionTracking(); // Evita crash quando permessi cambiano
+              },
+              cancelOnError: true,
+            );
   }
 
   // Ferma lo stream
@@ -50,17 +48,13 @@ class MainviewController {
     _positionSubscription = null;
   }
 
-  // Resetta la posizione utente
+  // Resetta la posizione utente su Firebase
   Future<void> resetPositionOnAppEnter() async {
     final user = _userController.currentUser;
     if (user == null) return;
 
-    await _firebaseServices.updateUserPosition(
-      user.uid,
-      const GeoPoint(0, 0),
-    );
+    await _firebaseServices.updateUserPosition(user.uid, const GeoPoint(0, 0));
   }
-
 
   UserModel? get currentUser => _userController.currentUser;
 }

@@ -25,6 +25,7 @@ class MyEventsController {
         );
   }
 
+  // Ritorna true se c'è almeno una news non letta
   Stream<bool> hasUnreadNews(String eventId) {
     final userId = _userController.currentUser?.uid;
     if (userId == null) return Stream.value(false);

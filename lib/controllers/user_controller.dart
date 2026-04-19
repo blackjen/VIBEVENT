@@ -45,11 +45,6 @@ class UserController {
     _currentUser = null;
   }
 
-  Future<List<EventModel>> eventiIscrittiCompleti() async {
-    if (_currentUser?.eventiIscritti == null) return [];
-    return await _firebase.getEventsByIds(_currentUser!.eventiIscritti);
-  }
-
   Stream<List<EventModel>> eventiIscrittiCompletiStream() {
     if (_currentUser == null) {
       return Stream.value([]);
@@ -62,45 +57,46 @@ class UserController {
         .doc(userId)
         .snapshots()
         .asyncMap((userSnap) async {
-      if (!userSnap.exists) return <EventModel>[];
+          if (!userSnap.exists) return <EventModel>[];
 
-      final data = userSnap.data();
-      if (data == null || data['eventiIscritti'] == null) {
-        return <EventModel>[];
-      }
+          final data = userSnap.data();
+          if (data == null || data['eventiIscritti'] == null) {
+            return <EventModel>[];
+          }
 
-      final List<String> eventIds =
-      List<String>.from(data['eventiIscritti']);
+          final List<String> eventIds = List<String>.from(
+            data['eventiIscritti'],
+          );
 
-      if (eventIds.isEmpty) return <EventModel>[];
+          if (eventIds.isEmpty) return <EventModel>[];
 
-      final FirebaseFirestore db = FirebaseFirestore.instance;
-      List<EventModel> events = [];
+          final FirebaseFirestore db = FirebaseFirestore.instance;
+          List<EventModel> events = [];
 
-      // Firestore: max 10 ID per whereIn
-      const batchSize = 10;
+          // Firestore: max 10 ID per whereIn
+          const batchSize = 10;
 
-      for (var i = 0; i < eventIds.length; i += batchSize) {
-        final batchIds = eventIds.sublist(
-          i,
-          i + batchSize > eventIds.length ? eventIds.length : i + batchSize,
-        );
+          for (var i = 0; i < eventIds.length; i += batchSize) {
+            final batchIds = eventIds.sublist(
+              i,
+              i + batchSize > eventIds.length ? eventIds.length : i + batchSize,
+            );
 
-        final snapshot = await db
-            .collection('events')
-            .where(FieldPath.documentId, whereIn: batchIds)
-            .get();
+            final snapshot = await db
+                .collection('events')
+                .where(FieldPath.documentId, whereIn: batchIds)
+                .get();
 
-        events.addAll(
-          snapshot.docs.map((d) => EventModel.fromFirestore(d)),
-        );
-      }
+            events.addAll(
+              snapshot.docs.map((d) => EventModel.fromFirestore(d)),
+            );
+          }
 
-      // Ordina per data evento
-      events.sort((a, b) => a.data.compareTo(b.data));
+          // Ordina per data evento
+          events.sort((a, b) => a.data.compareTo(b.data));
 
-      return events;
-    });
+          return events;
+        });
   }
 
   // Ritorna il documento con l'ultima news letta per un evento
@@ -118,7 +114,7 @@ class UserController {
     return doc.exists ? doc : null;
   }
 
-// Aggiorna l'ultima news letta
+  // Aggiorna l'ultima news letta
   Future<void> markEventNewsAsRead(String eventId) async {
     final userId = _currentUser?.uid;
     if (userId == null) return;
@@ -130,6 +126,4 @@ class UserController {
         .doc(eventId)
         .set({'lastRead': DateTime.now()});
   }
-
-
 }

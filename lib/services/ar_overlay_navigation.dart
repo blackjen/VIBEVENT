@@ -119,7 +119,7 @@ class _AROverlayNavigationState extends State<AROverlayNavigation> {
     });
   }
 
-
+  // Calcola l'orientamento della freccia
   double _calculateBearing(
       double startLat,
       double startLng,

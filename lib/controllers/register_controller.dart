@@ -64,7 +64,4 @@ class RegisterController {
       return e.toString();
     }
   }
-
-  // Ritorna l'utente corrente
-  UserModel? get currentUser => _userController.currentUser;
 }

@@ -265,6 +265,7 @@ class LivePageState extends State<LivePage> {
     );
   }
 
+  // Ritorna i 3 pulsanti dell'evento
   Widget _buildEventMenu(EventModel event, List<EventModel> events) {
     final otherEvents = _controller.getOtherUpcomingEvents(events, event);
 
@@ -375,6 +376,7 @@ class LivePageState extends State<LivePage> {
     );
   }
 
+  // Permette di scegliere un evento tra quelli dello stesso giorno
   void _showEventPicker(List<EventModel> events) {
     showDialog(
       context: context,
@@ -398,6 +400,7 @@ class LivePageState extends State<LivePage> {
     );
   }
 
+  // Mostra i Punti Di Interesse dell'evento
   void _showLocations(EventModel event) {
     showModalBottomSheet(
       isScrollControlled: true,
@@ -492,6 +495,7 @@ class LivePageState extends State<LivePage> {
     );
   }
 
+  // Apre fotocamera e manda foto/video nella chat
   Future<void> _openCameraAndSend(EventModel event) async {
     final picker = ImagePicker();
     final choice = await showDialog<String>(

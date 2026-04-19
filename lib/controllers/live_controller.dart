@@ -145,6 +145,7 @@ class LiveController {
     await _chatServices.sendMessage(event.id, message);
   }
 
+  // Carica il media su Supabase e ritorna l'URL
   Future<String?> uploadMediaToSupabase(XFile file) async {
     final storage = Supabase.instance.client.storage.from('vibevent_storage');
 
